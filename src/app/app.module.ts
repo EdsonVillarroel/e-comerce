@@ -4,11 +4,15 @@ import { FormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { ProductComponent } from './component/product/product.component';
+import { CardComponent } from './component/card/card.component';
+import { HighlightDirective } from './directive/highlight.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductComponent
+    ProductComponent,
+    CardComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
