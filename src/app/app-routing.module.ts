@@ -20,7 +20,7 @@ const routes: Routes = [
     component: ContactComponent,
   },
   {
-    path: 'productDetail/:id',
+    path: 'products/:id',
     component: ProductDetailComponent,
   },
   {
@@ -30,7 +30,7 @@ const routes: Routes = [
   {
     path: '',
     redirectTo:'/home',
-    pathMatch:'fulls'
+    pathMatch:'full'
   },
 ];
 
