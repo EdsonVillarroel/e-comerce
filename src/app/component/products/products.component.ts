@@ -58,6 +58,13 @@ export class ProductsComponent implements OnInit {
       price: 80000,
       description: 'bla bla bla bla bla'
     },
+    {
+      id: '7',
+      image: 'assets/images/polera.png',
+      title: 'Polera',
+      price: 80000,
+      description: 'bla bla bla bla bla',
+    },
   ];
 
   clickProduct(id:number) {
