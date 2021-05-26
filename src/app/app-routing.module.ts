@@ -31,16 +31,15 @@ const routes: Routes = [
       //   path: 'products/:id',
       //   component: ProductDetailComponent,
       // },
-      {
-        path: '**',
-        component: PageNotFoundComponent,
-      },
-      // {
-      //   path: '',
-      //   redirectTo:'/home',
-      //   pathMatch:'full'
-      // },
     ]
+  },
+  {
+    path: 'admin',
+    loadChildren:()=>import('./admin/admin.module').then(m=> m.AdminModule)
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
   },
 ];
 
