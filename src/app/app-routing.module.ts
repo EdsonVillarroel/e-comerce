@@ -27,10 +27,10 @@ const routes: Routes = [
         path: 'contact',
         loadChildren:()=>import('./component/contact/contact.module').then(m=>m.ContactModule)
       },
-      // {
-      //   path: 'products/:id',
-      //   component: ProductDetailComponent,
-      // },
+      {
+        path: 'order',
+        loadChildren:()=>import('./order/order.module').then(m=>m.OrderModule)
+      },
     ]
   },
   {
