@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./order.component.css'],
 })
 export class OrderComponent implements OnInit {
-  products$: Observable <Product[]>;
+  products$: Observable<Product[]>;
   constructor(private cartService: CartService) {
     this.products$ = this.cartService.cart$;
   }
