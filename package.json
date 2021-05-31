@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~12.0.0",
     "@angular/platform-browser-dynamic": "~12.0.0",
     "@angular/router": "~12.0.0",
+    "@angular/service-worker": "~12.0.0",
     "firebase": "^8.6.3",
     "flexboxgrid": "^6.3.1",
     "rxjs": "~6.6.0",
@@ -41,5 +42,17 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "typescript": "~4.2.3"
-  }
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.0.",
+  "main": "karma.conf.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EdsonVillarroel/e-comerce.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EdsonVillarroel/e-comerce/issues"
+  },
+  "homepage": "https://github.com/EdsonVillarroel/e-comerce#readme"
 }

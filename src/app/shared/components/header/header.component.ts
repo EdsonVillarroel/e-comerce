@@ -1,5 +1,5 @@
 import { map } from 'rxjs/operators';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CartService } from './../../../core/services/cart/cart.service';
 import { Observable } from 'rxjs';
 
@@ -10,17 +10,30 @@ import { Observable } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
   total$: Observable<number>;
+  installEvent:any;
+
   constructor(private cartService: CartService) {
-    // this.cartService.cart$
-    //   .pipe(map((products) => products.length))
-    //   .subscribe(total => {
-    //     console.log(total);
-    //     this.total = total;
-    //   });
     this.total$ = this.cartService.cart$.pipe(
       map((products) => products.length)
     );
   }
 
   ngOnInit(): void {}
+
+  @HostListener('window:beforeinstallprompt', ['$event'])
+  onbeforeInstallPrompt(event: Event) {
+    console.log(event);
+    event.preventDefault();
+    window.addEventListener ('beforeinstallprompt', event => {
+      this.installEvent = event;
+    });
+  }
+
+  installByUser(){
+    console.log('holas');
+    if(this.installEvent){
+      this.installEvent.prompt();
+      this.installEvent.userChoice();
+    }
+  }
 }
