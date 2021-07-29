@@ -1,8 +1,19 @@
+import { Observable, throwError } from 'rxjs';
 import { Product } from '../../../model/product.model';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from './../../../../environments/environment';
+import { map, catchError, retry } from 'rxjs/operators'
 
+import * as Sentry from "@sentry/angular";
+
+
+
+interface User{
+  email: string;
+  gender: string;
+  phone: string;
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -23,5 +34,23 @@ export class ProductsService {
   }
   deleteProduct(id: string){
     return this.http.delete(`${environment.url_api}products/${id}`);
+  }
+
+  getRandomUsers(): Observable<User[]>{
+    return this.http.get('http://randomuser.me/api/?results=2')
+    .pipe(
+      retry(3),
+      catchError(this.handleError),
+      map((response :any) =>response.results as User[])
+    );
+  }
+
+  getFile(){
+    return this.http.get('assets/file/test.txt',{responseType: 'text'});
+  }
+  private handleError(error: HttpErrorResponse){
+    console.log(error);
+    Sentry.captureException(error);
+    return throwError('ups algo salio mal..!')
   }
 }

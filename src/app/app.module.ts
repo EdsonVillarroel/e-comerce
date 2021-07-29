@@ -1,6 +1,8 @@
+import { AuthInterceptor } from './core/interceptor/auth.interceptor';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +20,20 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireMessagingModule} from '@angular/fire/messaging';
 import { AngularFirestoreModule} from '@angular/fire/firestore';
 import { ServiceWorkerModule } from '@angular/service-worker';
+
+import { Integrations } from "@sentry/tracing";
+import * as Sentry from "@sentry/angular";
+
+
+Sentry.init({
+  dsn: "https://5729c680bbdb41fe81a034cf9dd87ce7@o933959.ingest.sentry.io/5883280",
+  integrations: [
+    new Integrations.BrowserTracing({
+      tracingOrigins: ["localhost", "https://yourserver.io/api"],
+      routingInstrumentation: Sentry.routingInstrumentation,
+    }),
+  ],
+})
 
 @NgModule({
   declarations: [
@@ -46,7 +62,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     }),
 
   ],
-  providers: [],
+  providers: [{
+    provide:HTTP_INTERCEPTORS,
+    useClass:AuthInterceptor,
+    multi:true
+  }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

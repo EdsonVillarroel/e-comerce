@@ -39,7 +39,8 @@ export class AppComponent implements OnInit {
 
   requestPermission() {
     this.angularFireMessaging.requestToken.subscribe((token) => {
-      console.log(token);
+      console.log("token",token);
+      this.tokenCollection.add({token});
     });
   }
 

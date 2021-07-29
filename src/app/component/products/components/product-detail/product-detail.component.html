@@ -1,4 +1,4 @@
-<div *ngIf="product !== undefined">
+<div *ngIf="(product$ | async) as product">
   <img [src]="product.image" alt="" />
 
   <ul>
@@ -9,4 +9,7 @@
   <button (click)="createProduct()">Save</button>
   <button (click)="updateProduct()">Update</button>
   <button (click)="deleteProduct()">Delete</button>
+  <button (click)="getRandomUser()">Get user</button>
+  <button (click)="getFile()">Get file</button>
+  <button (click)="saveFile()">Descargar archivo</button>
 </div>

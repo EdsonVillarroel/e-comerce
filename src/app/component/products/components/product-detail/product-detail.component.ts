@@ -1,7 +1,11 @@
 import { Product } from '../../../../model/product.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, ContentChild, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ProductsService } from '../../../../core/services/products/products.service';
+import { switchMap } from 'rxjs/operators'
+import { Observable } from 'rxjs';
+import { saveAs } from 'file-saver';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-product-detail',
@@ -9,7 +13,7 @@ import { ProductsService } from '../../../../core/services/products/products.ser
   styleUrls: ['./product-detail.component.css'],
 })
 export class ProductDetailComponent implements OnInit {
-  product: Product;
+  product$:Observable<Product>;
   constructor(
     private route: ActivatedRoute,
     private productsService: ProductsService
@@ -18,19 +22,18 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      const id = params.id;
-      // this.product = this.productsService.getProduct(id);
-      console.log(this.product);
-      this.fechtProduct(id);
-    });
+
+    this.product$ = this.route.params.pipe(switchMap((params: Params)=>{
+      return this.productsService.getProduct(params.id);
+    }))
   }
-  fechtProduct(id:string){
-    this.productsService.getProduct(id).subscribe(product=>{
-      this.product = product;
-      console.log(product)
-    });
-  }
+  //Evitar eñ soble Subscribe
+  // fechtProduct(id:string){
+  //   this.productsService.getProduct(id).subscribe(product=>{
+  //     this.product = product;
+  //     console.log(product)
+  //   });
+  // }
 
   createProduct(){
     const newProduct : Product = {
@@ -57,5 +60,25 @@ export class ProductDetailComponent implements OnInit {
     this.productsService.deleteProduct('222').subscribe(product=>{
       console.log(product)
     })
+  }
+  getRandomUser(){
+    this.productsService.getRandomUsers().subscribe(users=>{
+      console.log(users);
+    },
+    error=>{
+      console.log(error);
+    })
+
+  }
+
+  getFile(){
+    this.productsService.getFile().subscribe(content=>{
+      console.log(content);
+    });
+  }
+
+  saveFile(){
+    let PDF = new Blob(["hola mundo estoy, aqui de nuevo"],{type:"text/plain;charset=utf-8"});
+    FileSaver.saveAs(PDF,"prueba.txt");
   }
 }
