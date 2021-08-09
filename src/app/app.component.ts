@@ -48,7 +48,6 @@ export class AppComponent implements OnInit {
 
   updatePwa() {
     this.swUpdate.available.subscribe((value) => {
-      console.log('value', value);
       window.location.reload();
     });
     this.requestPermission();
