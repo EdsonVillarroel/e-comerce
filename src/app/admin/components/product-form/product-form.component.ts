@@ -1,93 +1,99 @@
-import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ProductsService } from '../../../core/services/products/products.service';
+import { MyValidators } from './../../../utils/validators';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
-  styleUrls: ['./product-form.component.scss']
+  styleUrls: ['./product-form.component.scss'],
 })
-export class ProductFormComponent {
-  addressForm = this.fb.group({
-    company: null,
-    firstName: [null, Validators.required],
-    lastName: [null, Validators.required],
-    address: [null, Validators.required],
-    address2: null,
-    city: [null, Validators.required],
-    state: [null, Validators.required],
-    postalCode: [null, Validators.compose([
-      Validators.required, Validators.minLength(5), Validators.maxLength(5)])
-    ],
-    shipping: ['free', Validators.required]
-  });
+export class ProductFormComponent implements OnInit {
+  form: FormGroup;
+  image$: Observable<any>;
 
-  hasUnitNumber = false;
+  constructor(
+    private formBuilder: FormBuilder,
+    private productsService: ProductsService,
+    private router: Router,
+    private angularFireStorage: AngularFireStorage
+  ) {
+    this.buildForm();
+  }
+  ngOnInit() {}
 
-  states = [
-    {name: 'Alabama', abbreviation: 'AL'},
-    {name: 'Alaska', abbreviation: 'AK'},
-    {name: 'American Samoa', abbreviation: 'AS'},
-    {name: 'Arizona', abbreviation: 'AZ'},
-    {name: 'Arkansas', abbreviation: 'AR'},
-    {name: 'California', abbreviation: 'CA'},
-    {name: 'Colorado', abbreviation: 'CO'},
-    {name: 'Connecticut', abbreviation: 'CT'},
-    {name: 'Delaware', abbreviation: 'DE'},
-    {name: 'District Of Columbia', abbreviation: 'DC'},
-    {name: 'Federated States Of Micronesia', abbreviation: 'FM'},
-    {name: 'Florida', abbreviation: 'FL'},
-    {name: 'Georgia', abbreviation: 'GA'},
-    {name: 'Guam', abbreviation: 'GU'},
-    {name: 'Hawaii', abbreviation: 'HI'},
-    {name: 'Idaho', abbreviation: 'ID'},
-    {name: 'Illinois', abbreviation: 'IL'},
-    {name: 'Indiana', abbreviation: 'IN'},
-    {name: 'Iowa', abbreviation: 'IA'},
-    {name: 'Kansas', abbreviation: 'KS'},
-    {name: 'Kentucky', abbreviation: 'KY'},
-    {name: 'Louisiana', abbreviation: 'LA'},
-    {name: 'Maine', abbreviation: 'ME'},
-    {name: 'Marshall Islands', abbreviation: 'MH'},
-    {name: 'Maryland', abbreviation: 'MD'},
-    {name: 'Massachusetts', abbreviation: 'MA'},
-    {name: 'Michigan', abbreviation: 'MI'},
-    {name: 'Minnesota', abbreviation: 'MN'},
-    {name: 'Mississippi', abbreviation: 'MS'},
-    {name: 'Missouri', abbreviation: 'MO'},
-    {name: 'Montana', abbreviation: 'MT'},
-    {name: 'Nebraska', abbreviation: 'NE'},
-    {name: 'Nevada', abbreviation: 'NV'},
-    {name: 'New Hampshire', abbreviation: 'NH'},
-    {name: 'New Jersey', abbreviation: 'NJ'},
-    {name: 'New Mexico', abbreviation: 'NM'},
-    {name: 'New York', abbreviation: 'NY'},
-    {name: 'North Carolina', abbreviation: 'NC'},
-    {name: 'North Dakota', abbreviation: 'ND'},
-    {name: 'Northern Mariana Islands', abbreviation: 'MP'},
-    {name: 'Ohio', abbreviation: 'OH'},
-    {name: 'Oklahoma', abbreviation: 'OK'},
-    {name: 'Oregon', abbreviation: 'OR'},
-    {name: 'Palau', abbreviation: 'PW'},
-    {name: 'Pennsylvania', abbreviation: 'PA'},
-    {name: 'Puerto Rico', abbreviation: 'PR'},
-    {name: 'Rhode Island', abbreviation: 'RI'},
-    {name: 'South Carolina', abbreviation: 'SC'},
-    {name: 'South Dakota', abbreviation: 'SD'},
-    {name: 'Tennessee', abbreviation: 'TN'},
-    {name: 'Texas', abbreviation: 'TX'},
-    {name: 'Utah', abbreviation: 'UT'},
-    {name: 'Vermont', abbreviation: 'VT'},
-    {name: 'Virgin Islands', abbreviation: 'VI'},
-    {name: 'Virginia', abbreviation: 'VA'},
-    {name: 'Washington', abbreviation: 'WA'},
-    {name: 'West Virginia', abbreviation: 'WV'},
-    {name: 'Wisconsin', abbreviation: 'WI'},
-    {name: 'Wyoming', abbreviation: 'WY'}
-  ];
+  private buildForm() {
+    this.form = this.formBuilder.group({
+      id: ['', Validators.required],
+      title: ['', Validators.required,Validators.minLength],
+      price: [0, [Validators.required, MyValidators.isPriceValid]],
+      file: [''],
+      description: ['', Validators.required],
+    });
+  }
+  public saveProduct(event: Event) {
+    event.preventDefault();
+    console.log(this.form.value);
+    if (this.form.valid) {
+      const product = this.form.value;
+      console.log('hola', product);
+      this.productsService.createProduct(product).subscribe(
+        (newProduct) => {
+          console.log('hola', newProduct);
+          this.router.navigate(['./admin/products']);
+        },
+        (error) => {
+          console.log('Error', error);
+        }
+      );
+    }
+  }
 
-  constructor(private fb: FormBuilder) {}
+  public updateProduct(event: Event) {
+    event.preventDefault();
+    console.log(this.form.value);
+    if (this.form.valid) {
+      const product = this.form.value;
+      console.log('hola', product);
+      this.productsService.createProduct(product).subscribe(
+        (newProduct) => {
+          console.log('hola', newProduct);
+          this.router.navigate(['./admin/products']);
+        },
+        (error) => {
+          console.log('Error', error);
+        }
+      );
+    }
+  }
+  uploadFile(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files !== null) {
+      const file = input.files[0];
+      const name = 'images';
+      const fileRef = this.angularFireStorage.ref(name);
+      const task = this.angularFireStorage.upload(name, file);
+      task
+        .snapshotChanges()
+        .pipe(
+          finalize(() => {
+            this.image$ = fileRef.getDownloadURL();
+            this.image$.subscribe((url) => {
+              console.log(url);
+              this.form.get('image')?.setValue(url);
+            });
+          })
+        )
+        .subscribe();
+      console.log(file);
+    }
+  }
 
-  onSubmit(): void {
-    alert('Thanks!');
+  get priceField() {
+    return this.form.get('price');
   }
 }
