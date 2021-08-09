@@ -9,6 +9,7 @@ import { CardComponent } from './../component/card/card.component';
 import { HighlightDirective } from './directives/directive/highlight.directive';
 
 import { MaterialModule } from './../material/material.module';
+import { QuicklinkModule } from 'ngx-quicklink';
 
 
 
@@ -25,6 +26,7 @@ import { MaterialModule } from './../material/material.module';
     RouterModule,
     MaterialModule,
     ReactiveFormsModule,
+    QuicklinkModule
   ],
   exports:[
     HeaderComponent,

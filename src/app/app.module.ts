@@ -24,6 +24,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { Integrations } from "@sentry/tracing";
 import * as Sentry from "@sentry/angular";
 
+import { QuicklinkModule } from 'ngx-quicklink';
+
 
 Sentry.init({
   dsn: "https://5729c680bbdb41fe81a034cf9dd87ce7@o933959.ingest.sentry.io/5883280",
@@ -58,8 +60,9 @@ Sentry.init({
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
+    QuicklinkModule
 
   ],
   providers: [{

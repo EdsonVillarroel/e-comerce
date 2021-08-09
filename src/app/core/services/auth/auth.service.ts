@@ -1,4 +1,4 @@
-import { TokenService } from './token.service';
+import { TokenService } from './../token/token.service';
 import { HttpClient } from '@angular/common/http';
 import { SafeMethodCall } from '@angular/compiler';
 import { Injectable } from '@angular/core';
