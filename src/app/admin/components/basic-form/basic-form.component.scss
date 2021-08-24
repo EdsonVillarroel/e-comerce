@@ -1,0 +1,30 @@
+.form-group{
+  padding: 15px;
+  display: flex;
+  flex-direction:column
+}
+.error{
+  color: red;
+}
+
+input{
+  &.is-valid{
+    border:2px solid green;
+  }
+  &.is-invalid{
+    border:2px solid red;
+  }
+}
+.message{
+  opacity: 0;
+  transition: all .5s ease-in;
+  &.active{
+    opacity: 1;
+    color: red;
+  }
+}
+form{
+  mat-form-field{
+    width: 100%;
+  }
+}

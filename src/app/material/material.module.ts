@@ -18,6 +18,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 
@@ -43,6 +45,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     LayoutModule,
     MatFormFieldModule,
     MatStepperModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     MatButtonModule,
@@ -63,6 +67,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     LayoutModule,
     MatFormFieldModule,
     MatStepperModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
 })
 export class MaterialModule {}
