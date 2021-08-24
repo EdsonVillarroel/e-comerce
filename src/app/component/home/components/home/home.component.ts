@@ -29,18 +29,23 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     if (this.isFacebookOrInstagramApp()) {
       if (this.isAppleDevice()) {
-        location.href = `googlechrome://${window.location.host}`;
-        alert("safari");
-        // this.showPoupUp(this.alertModals.appleCameraMessage);
-      } else {
-        window.location.href = "googlechromes"+location.href.substring(4);;
         var url = navigator.userAgent;
         var link = navigator.appCodeName;
-        var title = location.hostname;        ;
+        var title = location.hostname;
+        location.href = `googlechrome://${window.location.host}`;
+        alert(
+          "userAgent=> " + url+"    AppCodeName ==>" + link+"  HostName ==>" + title
+         );
+        // this.showPoupUp(this.alertModals.appleCameraMessage);
+      } else {
+        var url = navigator.userAgent;
+        var link = navigator.appCodeName;
+        var title = location.hostname;
 
         alert(
-         " abrir en google por que si " + url+"userAgent" + link+"appCodeName" + title+"HostName"
+         "userAgent=> " + url+"    AppCodeName ==>" + link+"  HostName ==>" + title
         );
+        location.href = `googlechrome://navigate?url=${window.location.host}`;
 
         // this.showPoupUp(this.alertModals.notAppleFacebookOrInstagramApp);
       }
