@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       } else {
         window.location.href = `${window.location.host}`;
 
-        alert(`abrir en google ${navigator.userAgent ,navigator.appCodeName,document.URL}`);
+        alert(`abrir en google por que si ${navigator.userAgent ,navigator.appCodeName,document.URL}`);
 
         // this.showPoupUp(this.alertModals.notAppleFacebookOrInstagramApp);
       }
