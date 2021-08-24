@@ -1,3 +1,4 @@
+import { BasicFormComponent } from './components/basic-form/basic-form.component';
 import { EditProductFormComponent } from './components/edit-product-form/edit-product-form.component';
 import { FormProductComponent } from './components/form-product/form-product.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -19,7 +20,7 @@ const routes: Routes = [
         component: ProductFormComponent
       },
       {
-        path:'',
+        path:'dashboard',
         component:DashboardComponent
       },
       {
@@ -37,6 +38,14 @@ const routes: Routes = [
       {
         path:'products/edit/:id',
         component:EditProductFormComponent
+      },
+      {
+        path:'basic-form',
+        component:BasicFormComponent
+      },
+      {
+        path: 'categories',
+        loadChildren: () => import('./components/categories/categoriess.module').then(m => m.CategoriessModule)
       },
     ]
   }
