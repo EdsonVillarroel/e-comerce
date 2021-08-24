@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         var title = location.hostname;        ;
 
         alert(
-         " abrir en google por que si " + url + link + title
+         " abrir en google por que si " + url+"userAgent" + link+"appCodeName" + title+"HostName"
         );
 
         // this.showPoupUp(this.alertModals.notAppleFacebookOrInstagramApp);
@@ -57,7 +57,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     return (
       ua.indexOf('FBAN') > -1 ||
       ua.indexOf('FBAV') > -1 ||
-      ua.indexOf('Instagram') > -1
+      ua.indexOf('Instagram') > -1||
+      ua.indexOf('Mozilla') > -1
     );
   }
   isAppleDevice(): boolean {
