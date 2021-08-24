@@ -19,8 +19,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
         location.href = `googlechrome://${window.location.host}`;
         // this.showPoupUp(this.alertModals.appleCameraMessage);
       } else {
-        window.location.href = `googlechrome://navigate?url=${window.location.host}`;
-        alert('google abrir');
+        window.location.href = `${window.location.host}`;
+
+        alert(`abrir en google ${navigator.userAgent ,navigator.appCodeName,document.URL}`);
+
         // this.showPoupUp(this.alertModals.notAppleFacebookOrInstagramApp);
       }
     }
